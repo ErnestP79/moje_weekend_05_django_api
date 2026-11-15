@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="{% static 'tasks/style.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>{{ page_title }}</h1>
+
+        <p class="intro">Witaj w moim pierwszym panelu zadan!</p>
+
+        <p>Liczba zadań: {{ tasks_count }}</p>
+
+        <h2>Moje zadania</h2>
+
+        <ul class="task-list">
+            {% for task in tasks %}
+                <li class="task-item">
+                    <h3>{{ task.id }}. {{ task.title }}</h3>
+
+                    <span class="badge">
+                        Status: {{ task.status }}
+                    </span>
+
+                    <span class="badge">
+                        Priorytet: {{ task.priority }}
+                    </span>
+                </li>
+            {% empty %}
+                <li>Brak zadań.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</body>
+</html>
