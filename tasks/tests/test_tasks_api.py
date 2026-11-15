@@ -76,3 +76,21 @@ def test_create_task_with_invalid_priority_returns_400():
 
     assert response.status_code == 400
     assert "priority" in response.data
+
+def test_get_task_details_returns_200():
+    client = APIClient()
+
+    response = client.get("/api/tasks/1/")
+
+    assert response.status_code == 200
+    assert response.data["id"] == 1
+    assert response.data["title"] == "Create Django project"
+
+
+def test_get_task_details_returns_404():
+    client = APIClient()
+
+    response = client.get("/api/tasks/999/")
+
+    assert response.status_code == 404
+    assert response.data["error"] == "Task not found"

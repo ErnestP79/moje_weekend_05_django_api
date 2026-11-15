@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+﻿from django.http import HttpResponse
 from django.shortcuts import render
 
 from rest_framework.views import APIView
@@ -157,4 +157,17 @@ class TaskViewSet(viewsets.ViewSet):
         return Response(
             serializer.errors,
             status=status.HTTP_400_BAD_REQUEST
+        )
+
+    def retrieve(self, request, pk=None):
+        for task in TASKS:
+            if task["id"] == int(pk):
+                return Response(
+                    task,
+                    status=status.HTTP_200_OK
+                )
+
+        return Response(
+            {"error": "Task not found"},
+            status=status.HTTP_404_NOT_FOUND
         )
